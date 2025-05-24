@@ -1,8 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser'
-import problemRoutes from './routes/problem.routes.js';
+import cors from 'cors'
 
+import problemRoutes from './routes/problem.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import { executeCodeRoutes } from './routes/executeCode.routes.js';
 import { submissionRoutes } from './routes/submission.routes.js';
@@ -13,6 +14,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
+
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true
+    })
+)
 
 app.get('/api/v1/test', (req, res) => {
     res.send({
